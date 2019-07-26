@@ -10,6 +10,7 @@ function flip(card) {
 }
 
 function openCard(card) {
+  if (card.dataset.opened === 'true') return;
   flip(card);
   score -= 1;
   if (firstOpened) {
@@ -32,7 +33,7 @@ function makeDeck(pairs) {
     const card = document.createElement('div');
     card.dataset.opened = false;
     card.dataset.pair = i;
-    card.classList.add('card-box__item');
+    card.classList.add('card-box__item', 'flipped');
     card.innerHTML = `<div class="card-box__item-front">Front</div>
           <div class="card-box__item-back">${backMatter[i]}</div>`;
     const pairedCard = card.cloneNode(card);
@@ -52,5 +53,14 @@ function makeDeck(pairs) {
   return deck;
 }
 
-const newDeck = makeDeck(5);
-game.append(newDeck);
+function newGame() {
+  const newDeck = makeDeck(8);
+  game.append(newDeck);
+  setTimeout(() => {
+    newDeck.querySelectorAll('.card-box__item').forEach((card) => {
+      card.classList.remove('flipped');
+    });
+  }, 5000);
+}
+
+newGame();
