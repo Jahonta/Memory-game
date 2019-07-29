@@ -4,8 +4,13 @@
   padding: 0;
 }
 
+body {
+  background-color: #009900;
+  padding-top: 3vw;
+}
+
 .game {
-  max-width: 1040px;
+  width: 80vw;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -13,25 +18,24 @@
 
 .card-box {
   width: 100%;
-  padding: 30px;
+  padding: 2vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .card-box__item {
-  width: 150px;
-  height: 200px;
-  border: 1px solid #000;
+  width: 7.5vw;
+  height: 10vw;
   display: flex;
-  margin: 5px 5px;
+  margin: 1vw;
   justify-content: center;
   align-items: center;
   perspective: 1000px;
   transform-style: preserve-3d;
-  cursor: pointer;
-  transition: all 600ms;
+  scursor: pointer;
+  transition: transform 600ms;
   position: relative;
 }
 
@@ -47,12 +51,20 @@
 }
 
 .card-box__item-front {
-  background-color: #e9adad;
+  background-image: url(./img/card-game.svg);
+  background-repeat: no-repeat;
 }
 
 .card-box__item-back {
   transform: rotateY(180deg);
-  background-color: #aedbf0;
+  background-color: #ebf0d0;
+  border-radius: 1vw;
+  box-shadow: 1px 1px 2px #830007;
+}
+
+.card-box__back-img {
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .flipped {
@@ -60,6 +72,9 @@
 }
 
 .score {
-  padding: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 1vw;
+  color: #ebf0d0;
   width: 100%;
 }

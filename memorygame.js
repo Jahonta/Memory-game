@@ -1,30 +1,66 @@
 const game = document.querySelector('.game');
 const scoreBox = document.querySelector('.score');
-const backMatter = 'QWERTASDFGZXCVBYUIOPHJKLNM';
+const backMatter = [
+  './img/deck01/1.svg',
+  './img/deck01/2.svg',
+  './img/deck01/3.svg',
+  './img/deck01/4.svg',
+  './img/deck01/5.svg',
+  './img/deck01/6.svg',
+  './img/deck01/7.svg',
+  './img/deck01/8.svg',
+  './img/deck01/9.svg',
+  './img/deck01/10.svg',
+  './img/deck01/11.svg',
+  './img/deck01/12.svg',
+];
 let firstOpened = null;
 let score = 0;
 
+function isOpened(card) {
+  return card.dataset.opened === 'true';
+}
+
+function isFlipped(card) {
+  return card.classList.contains('flipped');
+}
+
 function flip(card) {
-  if (card.dataset.opened === 'true') return;
+  if (isOpened(card)) return;
   card.classList.toggle('flipped');
 }
 
+function setScore(num) {
+  score += num;
+  scoreBox.textContent = `Your score: ${score}`;
+}
+
 function openCard(card) {
-  if (card.dataset.opened === 'true') return;
+  // If the pair is already opened do nothing
+  if (isOpened(card)) return;
+
+  // Score the move
   flip(card);
-  score -= 1;
+  setScore(-1);
+
+  // If the card was already flipped the move is over
+  if (!isFlipped(card)) {
+    firstOpened = null;
+    return;
+  }
+
+  // If there is another flipped card check if it is paired
   if (firstOpened) {
-    if (firstOpened.dataset.pair === card.dataset.pair) {
+    if (firstOpened !== card && firstOpened.dataset.pair === card.dataset.pair) {
       card.dataset.opened = true;
       firstOpened.dataset.opened = true;
       firstOpened = null;
-      score += 10;
+      setScore(10);
     } else {
       flip(firstOpened);
     }
   }
   firstOpened = card;
-  scoreBox.textContent = `Your score: ${score}`;
 }
 
 function makeDeck(pairs) {
@@ -34,8 +70,10 @@ function makeDeck(pairs) {
     card.dataset.opened = false;
     card.dataset.pair = i;
     card.classList.add('card-box__item', 'flipped');
-    card.innerHTML = `<div class="card-box__item-front">Front</div>
-          <div class="card-box__item-back">${backMatter[i]}</div>`;
+    card.innerHTML = `<div class="card-box__item-front"></div>
+          <div class="card-box__item-back"><img src="${
+  backMatter[i]
+}" alt="" class="card-box__back-img"></div>`;
     const pairedCard = card.cloneNode(card);
     deck.appendChild(card);
     deck.appendChild(pairedCard);
@@ -54,7 +92,7 @@ function makeDeck(pairs) {
 }
 
 function newGame() {
-  const newDeck = makeDeck(8);
+  const newDeck = makeDeck(12);
   game.append(newDeck);
   setTimeout(() => {
     newDeck.querySelectorAll('.card-box__item').forEach((card) => {
