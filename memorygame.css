@@ -34,7 +34,7 @@ body {
   align-items: center;
   perspective: 1000px;
   transform-style: preserve-3d;
-  scursor: pointer;
+  cursor: pointer;
   transition: transform 600ms;
   position: relative;
 }
