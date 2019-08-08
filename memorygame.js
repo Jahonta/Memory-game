@@ -65,7 +65,7 @@ function setScore(points) {
 }
 
 function addPad(number) {
-  return number > 10 ? number : `0${number}`;
+  return number >= 10 ? number : `0${number}`;
 }
 
 function drawTable() {
