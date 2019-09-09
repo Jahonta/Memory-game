@@ -184,8 +184,7 @@ function makeDeck(pairs) {
 function makeTimer(deck, seconds) {
   scoreBox.textContent = `Cards will flip over in ${seconds} seconds`;
   const timer = setTimeout(() => {
-    scoreBox.textContent = `Cards will flip over in ${seconds - 1} seconds`;
-    if (seconds === 1) {
+    if (seconds === 0) {
       scoreBox.textContent = 'Go!';
       deck.querySelectorAll('.card-box__item').forEach((card) => {
         card.classList.remove('flipped');
