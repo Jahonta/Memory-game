@@ -131,7 +131,10 @@ function openCard(card) {
 
   // If there is another flipped card check if it is paired
   if (firstOpened) {
-    if (firstOpened !== card && firstOpened.dataset.pair === card.dataset.pair) {
+    if (
+      firstOpened !== card
+      && firstOpened.dataset.pair === card.dataset.pair
+    ) {
       card.dataset.opened = true;
       firstOpened.dataset.opened = true;
       firstOpened = null;
@@ -158,9 +161,7 @@ function makeDeck(pairs) {
     card.dataset.pair = i;
     card.classList.add('card-box__item', 'flipped');
     card.innerHTML = `<div class="card-box__item-front"></div>
-          <div class="card-box__item-back"><img src="${
-  backMatter[i]
-}" alt="" class="card-box__back-img"></div>`;
+          <div class="card-box__item-back"><img src="${backMatter[i]}" alt="" class="card-box__back-img"></div>`;
     const pairedCard = card.cloneNode(card);
     deck.appendChild(card);
     deck.appendChild(pairedCard);
@@ -180,17 +181,29 @@ function makeDeck(pairs) {
   return deck;
 }
 
+function makeTimer(deck, seconds) {
+  scoreBox.textContent = `Cards will flip over in ${seconds} seconds`;
+  const timer = setTimeout(() => {
+    scoreBox.textContent = `Cards will flip over in ${seconds - 1} seconds`;
+    if (seconds === 1) {
+      scoreBox.textContent = 'Go!';
+      deck.querySelectorAll('.card-box__item').forEach((card) => {
+        card.classList.remove('flipped');
+      });
+      clearTimeout(timer);
+    } else {
+      makeTimer(deck, seconds - 1);
+    }
+  }, 1000);
+}
+
 function newGame(pairs) {
   refresh();
   totalPairs = pairs;
   memory.pairs = pairs;
   const newDeck = makeDeck(pairs);
   game.append(newDeck);
-  setTimeout(() => {
-    newDeck.querySelectorAll('.card-box__item').forEach((card) => {
-      card.classList.remove('flipped');
-    });
-  }, 5000);
+  makeTimer(newDeck, 5);
 }
 
 playBtn.addEventListener('click', (e) => {
