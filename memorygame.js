@@ -6,7 +6,7 @@ const scoreBox = document.querySelector('.score');
 const modal = document.querySelector('.modal');
 const num = document.querySelector('#num');
 const playBtn = document.querySelector('.modal__play');
-const records = document.querySelector('.modal__reconds');
+const records = document.querySelector('.modal__records');
 const tableScore = document.querySelector('.modal__table-box');
 const forgetBtn = document.querySelector('.modal__clear');
 const backMatter = [
@@ -184,7 +184,7 @@ function makeDeck(pairs) {
 function makeTimer(deck, seconds) {
   scoreBox.textContent = `Cards will flip over in ${seconds} seconds`;
   const timer = setTimeout(() => {
-    if (seconds === 0) {
+    if (seconds === 1) {
       scoreBox.textContent = 'Go!';
       deck.querySelectorAll('.card-box__item').forEach((card) => {
         card.classList.remove('flipped');

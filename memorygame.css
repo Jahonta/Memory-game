@@ -86,7 +86,7 @@ body {
 
 .modal {
   z-index: 10;
-  max-width: 90vmin;
+  width: 60vw;
   position: absolute;
   top: 5%;
   left: 50%;
@@ -104,7 +104,7 @@ body {
 }
 
 .modal__game-over,
-.modal__reconds {
+.modal__records {
   display: none;
 }
 
@@ -148,4 +148,30 @@ body {
 .modal__table-score th {
   background-color: #ebf0d0;
   color: #017001;
+}
+
+@media screen and (max-width: 1000px) {
+  .game {
+    width: 100%;
+  }
+
+  .modal {
+    width: 80vw;
+  }
+
+  .card-box__item {
+    width: 11.25vw;
+    height: 15vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .modal {
+    top: 1%;
+    width: 98vw;
+  }
+  .card-box__item {
+    width: 15vw;
+    height: 20vw;
+  }
 }
