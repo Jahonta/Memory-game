@@ -1,3 +1,4 @@
 # Memory-game
+
 A card memory game
-https://jahonta.github.io/Memory-game/
+[Try it](https://jahonta.github.io/Memory-game/)
