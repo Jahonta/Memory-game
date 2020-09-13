@@ -1,14 +1,12 @@
-/* eslint-disable no-restricted-syntax */
-
-/* Get the DOK and cards' backMatter */
+/* Get the DOM and cards' backMatter */
 const game = document.querySelector('.game');
 const scoreBox = document.querySelector('.score');
 const modal = document.querySelector('.modal');
-const num = document.querySelector('#num');
-const playBtn = document.querySelector('.modal__play');
-const records = document.querySelector('.modal__records');
-const tableScore = document.querySelector('.modal__table-box');
-const forgetBtn = document.querySelector('.modal__clear');
+const num = modal.querySelector('#num');
+const playBtn = modal.querySelector('.modal__play');
+const records = modal.querySelector('.modal__records');
+const tableScore = modal.querySelector('.modal__table-box');
+const forgetBtn = modal.querySelector('.modal__clear');
 const backMatter = [
   './img/deck01/1.svg',
   './img/deck01/2.svg',
