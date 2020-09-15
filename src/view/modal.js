@@ -36,9 +36,8 @@ const getOptionTemplate = (number, isSelected) => {
 
 const getFormTemplate = (prevOption = 4) => {
   const optionsList = OPTIONS.map((option) => {
-    getOptionTemplate(option, option === prevOption);
+    return getOptionTemplate(option, option === prevOption);
   }).join('');
-  console.log(optionsList);
 
   return (
     `<form class="modal__form">
@@ -98,7 +97,7 @@ export default class Modal {
     this.recordsElement = null;
   }
 
-  init(mode, records, score = 0, prevOption = null) {
+  init(mode, records, score = 0, prevOption) {
     this.modalElement = createElement(getModalTemplate());
     this.welcomeElement = createElement(getWelcomeTemplate());
     this.formElement = createElement(getFormTemplate(prevOption));
