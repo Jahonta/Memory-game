@@ -103,11 +103,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.modal__game-over,
-.modal__records {
-  display: none;
-}
-
 .modal__title {
   font-size: 1.5rem;
   margin-bottom: 0.75rem;
@@ -116,7 +111,6 @@ body {
 
 #num {
   width: 2.5rem;
-  padding-left: 0.5rem;
   margin-left: 0.5rem;
 }
 
