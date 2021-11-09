@@ -1,15 +1,8 @@
-enum Mode {Waiting, On, Over}
+import { Config } from './types/config.js';
+import { State } from './types/state.js';
+import { Mode, PAIRS_DEFAULT } from './const.js';
 
-type State = {
-  openedPairs: number;
-  isOpened: boolean;
-  openedCard: Object | null;
-  mode: Mode;
-}
-
-type Config = {
-  totalPairs: number;
-}
+import Deck from './deck.js';
 export default class Game {
   private config: Config;
   private _state: State;
@@ -28,20 +21,32 @@ export default class Game {
     this._state = {...this._state, ...update}
   }
 
-  constructor(pairs: number) {
+  constructor() {
     this.config = {
-      totalPairs: pairs
+      totalPairs: PAIRS_DEFAULT
     };
     this._state = this.initialState;
   }
 
-  init() {
+  init(pairs: number) {
+    this.config = {
+      totalPairs: pairs
+    };
     this.state = this.initialState;
   }
 
-  start() {}
+  start() {
+    const deck = new Deck(this.config.totalPairs, this.deckClickHandler);
+    this.state = {mode: Mode.On};
+  }
 
-  finish() {}
+  finish() {
+    this.state = {mode: Mode.Over};
+  }
+
+  private deckClickHandler(evt: Event) {
+
+  }
 
   private isOver() {
     return this.config.totalPairs === this.state.openedPairs;

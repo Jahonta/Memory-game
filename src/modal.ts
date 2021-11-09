@@ -1,13 +1,12 @@
-import Record from "./interface/record.js";
+import { Record } from "./types/record.js";
 import { formatDate } from "./utils/date.js";
 import { getElementFromTemplate } from "./utils/get-element-from-template.js";
+import { ModalType } from './const.js';
 
-export enum ModalType {Welcome = 'welcome', GameOver = 'game-over'};
-
-export class Modal {
+export default class Modal {
   private modal: HTMLDivElement;
 
-  constructor(type: string, pairs: number, records: Record[], lastScore?: number) {
+  constructor(type: string, pairs: number, records: Record[], lastScore: number = 0) {
     this.modal = getElementFromTemplate('#modal') as HTMLDivElement;
     this.renderMessage(type, lastScore);
     this.renderForm(pairs);
@@ -26,9 +25,16 @@ export class Modal {
     document.body.style.overflow = 'visible';
   }
 
-  private renderMessage(type: string, lastScore?: number) {
+  setPlayClickHandler(callback: (pairs: number) => void) {
+    const pairs = (this.modal.querySelector('#num') as HTMLSelectElement).value;
+    this.modal.querySelector('.modal__play')?.addEventListener('click', () => {
+      callback(+pairs);
+    });
+  }
+
+  private renderMessage(type: string, lastScore: number) {
     const message = getElementFromTemplate(`#modal__${type}`);
-    if (type === ModalType.GameOver && lastScore) {
+    if (type === ModalType.GameOver) {
       const scoreElement = message.querySelector('.modal__score') as HTMLSpanElement;
       scoreElement.textContent = lastScore.toString();
     }
@@ -39,7 +45,6 @@ export class Modal {
     const formElement = getElementFromTemplate('#modal__form') as HTMLFormElement;
     const pairsSelectElement = formElement.querySelector('#num')! as HTMLSelectElement;
     pairsSelectElement.value = pairs.toString();
-
     this.modal.append(formElement);
   }
 

@@ -1,7 +1,7 @@
-import Record from "./interface/record.js";
-import {Modal, ModalType} from "./modal.js";
-
-const PAIRS_DEFAULT = 4;
+import { Record } from "./types/record.js";
+import { ModalType, PAIRS_DEFAULT } from './const.js';
+import Modal from "./modal.js";
+import Game from './game.js';
 
 const mockRecords: Record[] = [
   {
@@ -18,5 +18,16 @@ const mockRecords: Record[] = [
   }
 ];
 
-const modal = new Modal(ModalType.GameOver, PAIRS_DEFAULT, mockRecords, 15);
+const modal = new Modal(ModalType.Welcome, PAIRS_DEFAULT, mockRecords);
+const game = new Game();
+
+function startTheGame(pairs: number) {
+  game.init(pairs);
+  game.start();
+}
+
 modal.render();
+modal.setPlayClickHandler((pairs: number) => {
+  modal.destroy();
+  startTheGame(pairs);
+});
