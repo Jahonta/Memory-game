@@ -1,40 +1,63 @@
-const backMatter = [
-  './img/deck01/1.svg',
-  './img/deck01/2.svg',
-  './img/deck01/3.svg',
-  './img/deck01/4.svg',
-  './img/deck01/5.svg',
-  './img/deck01/6.svg',
-  './img/deck01/7.svg',
-  './img/deck01/8.svg',
-  './img/deck01/9.svg',
-  './img/deck01/10.svg',
-  './img/deck01/11.svg',
-  './img/deck01/12.svg',
-];
+import Card from "./card.js";
+import Pair from "./pair.js";
+import { Status } from './types/status.js';
 
 export default class Deck {
-  constructor(pairs: number, clickHandler: (evt: Event) => void) {
-    const deck = this.createDeck(pairs);
-    deck.addEventListener('click', clickHandler);
+  private deck: Pair[];
+  private deckElement: HTMLUListElement;
+  private openedCard?: Card;
 
-    document.querySelector('.game')?.append(deck);
+  constructor(pairs: number, private clickHandler: (status: Status) => void) {
+    this.deck = Array.from({length: pairs},
+      (_, index) => new Pair(`./img/deck01/${index + 1}.svg`, this.onPairClick));
+
+    this.deckElement = this.createDeck();
+
+    document.querySelector('.game')?.append(this.deckElement);
   }
 
-  private createDeck(pairs: number): HTMLUListElement {
-    const deck = document.createElement('ul');
-    deck.classList.add('card-box');
+  closeCards = (): void => {
+    this.deck.forEach((pair) => {
+      if (!pair.isSet) {
+        pair.closeCards();
+      }
+    });
+  }
 
-    for (let i = 0; i < pairs; i += 1) {
-      deck.append(...this.createCardPair(backMatter[i]))
+  destroy = () => {
+    document.querySelector('.game')!.innerHTML = '';
+  }
+
+  private createDeck(): HTMLUListElement {
+    const deckElement = document.createElement('ul');
+    deckElement.classList.add('card-box');
+
+    this.deck.forEach((pair) => {
+      deckElement.append(...pair.getCardElements());
+    });
+
+    for (let i = deckElement.children.length; i >= 0; i--) {
+      deckElement.append(deckElement.children[Math.random() * i | 0]);
     }
 
-    return deck;
+    return deckElement;
   }
 
-  private createCardPair(skin: string): HTMLLIElement[] {
-    const card = document.createElement('li');
+  private onPairClick = (status: Status, card: Card): void => {
+    if (!this.openedCard) {
+      this.openedCard = card;
+    } else {
+      switch(status) {
+        case Status.Hit:
+          this.openedCard = undefined;
+          break;
+        case Status.Miss:
+          this.openedCard.close();
+          this.openedCard = card;
+          break;
+      }
+    }
 
-    return [card, card];
+    this.clickHandler(status);
   }
 }

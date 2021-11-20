@@ -19,15 +19,15 @@ const mockRecords: Record[] = [
 ];
 
 const modal = new Modal(ModalType.Welcome, PAIRS_DEFAULT, mockRecords);
-const game = new Game();
-
-function startTheGame(pairs: number) {
-  game.init(pairs);
-  game.start();
-}
 
 modal.render();
 modal.setPlayClickHandler((pairs: number) => {
   modal.destroy();
-  startTheGame(pairs);
+  new Game(pairs, (score: number): void => {
+    mockRecords.push({
+      score,
+      date: new Date()
+    });
+    new Modal(ModalType.GameOver, pairs, mockRecords).render();
+  });
 });
