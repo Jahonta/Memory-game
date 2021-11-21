@@ -1,17 +1,25 @@
 import { Status } from './types/status.js';
 import { PAIRS_DEFAULT } from './const.js';
-
 import Deck from './deck.js';
 export default class Game {
   private score = 0;
   private openedPairs = 0;
   private totalPairs = PAIRS_DEFAULT;
   private deck!: Deck;
+  private gameOverHandler!: (score: number, pairs: number, game: Game) => void;
 
-  constructor(pairs: number, private gameOverHandler: (score: number) => void) {
+  constructor(pairs: number) {
     this.totalPairs = pairs;
     this.deck = new Deck(this.totalPairs, this.deckClickHandler);
     this.deck.closeCards();
+  }
+
+  setGameOverHandler = (callback: (score: number, pairs: number, game: Game) => void): void => {
+    this.gameOverHandler = callback;
+  }
+
+  destroy = () => {
+    this.deck.destroy();
   }
 
   private deckClickHandler = (status: Status) => {
@@ -25,8 +33,7 @@ export default class Game {
     }
 
     if (this.totalPairs === this.openedPairs) {
-      // this.deck.destroy();
-      this.gameOverHandler(this.score);
+      this.gameOverHandler(this.score, this.totalPairs, this);
     }
   }
 }

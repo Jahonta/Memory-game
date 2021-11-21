@@ -1,6 +1,6 @@
+import { Status } from './types/status.js';
 import Card from "./card.js";
 import Pair from "./pair.js";
-import { Status } from './types/status.js';
 
 export default class Deck {
   private deck: Pair[];

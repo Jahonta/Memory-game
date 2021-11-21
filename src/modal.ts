@@ -6,7 +6,7 @@ import { ModalType } from './const.js';
 export default class Modal {
   private modal: HTMLDivElement;
 
-  constructor(type: string, pairs: number, records: Record[], lastScore: number = 0) {
+  constructor(type: string, pairs: number, records: Record[], lastScore: number) {
     this.modal = getElementFromTemplate('#modal') as HTMLDivElement;
     this.renderMessage(type, lastScore);
     this.renderForm(pairs);
@@ -25,11 +25,15 @@ export default class Modal {
     document.body.style.overflow = 'visible';
   }
 
-  setPlayClickHandler(callback: (pairs: number) => void) {
-    const pairs = (this.modal.querySelector('#num') as HTMLSelectElement).value;
+  setPlayClickHandler(callback: (modal: Modal) => void) {
     this.modal.querySelector('.modal__play')?.addEventListener('click', () => {
-      callback(+pairs);
+      callback(this);
     });
+  }
+
+  getPairs = (): number => {
+    const pairs = (this.modal.querySelector('#num') as HTMLSelectElement).value;
+    return +pairs;
   }
 
   private renderMessage(type: string, lastScore: number) {
