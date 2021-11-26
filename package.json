@@ -5,7 +5,8 @@
   "main": "memorygame.js",
   "scripts": {
     "tsc": "tsc -w",
-    "start": "start npm run compiler && start npm run server",
+    "win-start": "start npm run compiler && start npm run server",
+    "mac-start": "npm run compiler & npm run server",
     "server": "browser-sync start --server --no-ui --files \"dist/**/*.js\"",
     "compiler": "npm run tsc"
   },
