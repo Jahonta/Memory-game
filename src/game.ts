@@ -5,11 +5,17 @@ export default class Game {
   private openedPairs = 0;
   private totalPairs: number;
   private deck!: Deck;
+  private gameElement: HTMLDivElement;
+  private scoreElement: HTMLDivElement;
   private gameOverHandler!: (score: number, pairs: number, game: Game) => void;
 
   constructor(pairs: number) {
     this.totalPairs = pairs;
+    this.gameElement = document.querySelector('.game') as HTMLDivElement;
+    this.scoreElement = document.querySelector('.score') as HTMLDivElement;
+    this.scoreElement.textContent = 'Your score: 0';
     this.deck = new Deck(this.totalPairs, this.deckClickHandler);
+    this.gameElement.append(this.deck.getElement());
     this.deck.closeCards();
   }
 
@@ -28,8 +34,9 @@ export default class Game {
         this.openedPairs++;
         break;
       case Status.Miss:
-        this.score -= 1;
+        this.score = this.score === 0 ? 0 : this.score - 1;
     }
+    this.scoreElement.textContent = `Your score: ${this.score.toString()}`;
 
     if (this.totalPairs === this.openedPairs) {
       this.gameOverHandler(this.score, this.totalPairs, this);

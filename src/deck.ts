@@ -12,8 +12,10 @@ export default class Deck {
       (_, index) => new Pair(`./img/deck01/${index + 1}.svg`, this.onPairClick));
 
     this.deckElement = this.createDeck();
+  }
 
-    document.querySelector('.game')?.append(this.deckElement);
+  getElement = (): HTMLUListElement => {
+    return this.deckElement;
   }
 
   closeCards = (): void => {
