@@ -1,4 +1,4 @@
-import { Record } from "./types/record.js";
+import { Record } from "./const.js";
 
 export default class Records {
   private records: Record[];

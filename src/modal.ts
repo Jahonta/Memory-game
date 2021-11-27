@@ -1,8 +1,29 @@
-import { Record } from "./types/record.js";
-import { formatDate } from "./utils/date.js";
-import { getElementFromTemplate } from "./utils/get-element-from-template.js";
-import { ModalType } from './const.js';
+import { ModalType, Record } from './const.js';
 
+const addPad = (num: number): string => num >= 10 ? num.toString() : `0${num}`;
+
+const createDate = (notDate: string): Date => {
+  return new Date(notDate);
+}
+
+const formatDate = (date: string | Date): string => {
+  const liveDate = typeof date === 'string' ? createDate(date) : date;
+  const day = addPad(liveDate.getDate());
+  const month = addPad(liveDate.getMonth() + 1);
+  const year = liveDate.getFullYear();
+  const hour = addPad(liveDate.getHours());
+  const minutes = addPad(liveDate.getMinutes());
+  const formatedDate = `${day}.${month}.${year} at ${hour}:${minutes}`;
+
+  return formatedDate;
+}
+
+const getElementFromTemplate = (selector: string): HTMLElement => {
+  const template = document.querySelector(selector)! as HTMLTemplateElement;
+  const content = template.content;
+  const element = content.firstElementChild as Node;
+  return element.cloneNode(true) as HTMLElement;
+}
 export default class Modal {
   private modal: HTMLDivElement;
 

@@ -1,21 +1,20 @@
 {
   "name": "Memory-game",
-  "version": "1.0.0",
-  "description": "A card memory game\r [Try it](https://jahonta.github.io/Memory-game/)",
-  "main": "memorygame.js",
+  "version": "2.0.0",
+  "main": "index.html",
   "scripts": {
     "tsc": "tsc -w",
-    "win-start": "start npm run compiler && start npm run server",
-    "mac-start": "npm run compiler & npm run server",
+    "win-start": "start npm run compile && start npm run server",
+    "mac-start": "npm run compile & npm run server",
     "server": "browser-sync start --server --no-ui --files \"dist/**/*.js\"",
-    "compiler": "npm run tsc"
+    "compile": "npm run tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jahonta/Memory-game.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jahonta",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jahonta/Memory-game/issues"
