@@ -1,4 +1,4 @@
-import { Status } from './types/status.js';
+import { Status } from './const.js';
 import Deck from './deck.js';
 export default class Game {
   private score = 0;

@@ -1,5 +1,5 @@
 import Card from "./card.js";
-import { Status } from './types/status.js';
+import { Status } from './const.js';
 
 export default class Pair {
   isSet = false;
@@ -22,9 +22,11 @@ export default class Pair {
 
     if (target.isOpened) {
       target.close();
+      this.clickHandler(Status.Close, target);
+      return;
+    } else {
+      target.open();
     }
-
-    target.open();
 
     if (this.pair.every(card => card.isOpened)) {
       this.isSet = true;

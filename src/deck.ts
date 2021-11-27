@@ -1,4 +1,4 @@
-import { Status } from './types/status.js';
+import { Status } from './const.js';
 import Card from "./card.js";
 import Pair from "./pair.js";
 
@@ -57,6 +57,8 @@ export default class Deck {
           this.openedCard.close();
           this.openedCard = card;
           break;
+        case Status.Close:
+          this.openedCard = undefined;
       }
     }
 
