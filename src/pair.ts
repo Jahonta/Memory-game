@@ -9,11 +9,11 @@ export default class Pair {
     this.pair = [new Card(skin, this.onCardClick), new Card(skin, this.onCardClick)]
   }
 
-  closeCards(): void {
+  closeCards= (): void => {
     this.pair.forEach(card => card.close())
   }
 
-  getCardElements(): HTMLLIElement[] {
+  getCardElements = (): HTMLLIElement[] => {
     return [this.pair[0].getCardElement(), this.pair[1].getCardElement()];
   }
 

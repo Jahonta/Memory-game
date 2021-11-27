@@ -15,19 +15,24 @@ export default class Modal {
     }
   }
 
-  render() {
+  render = (): void => {
     document.body.append(this.modal);
-    document.body.style.overflow = 'hidden';
   }
 
-  destroy() {
+  destroy = (): void => {
     this.modal.remove();
-    document.body.style.overflow = 'visible';
   }
 
-  setPlayClickHandler(callback: (modal: Modal) => void) {
+  setPlayClickHandler = (callback: (modal: Modal) => void): void => {
     this.modal.querySelector('.modal__play')?.addEventListener('click', () => {
       callback(this);
+    });
+  }
+
+  setForgetMeHandler = (callback: () => void): void => {
+    this.modal.querySelector('.modal__clear')?.addEventListener('click', () => {
+      callback();
+      this.modal.querySelector('.modal__records')?.remove();
     });
   }
 
@@ -36,7 +41,7 @@ export default class Modal {
     return +pairs;
   }
 
-  private renderMessage(type: string, lastScore: number) {
+  private renderMessage = (type: string, lastScore: number): void => {
     const message = getElementFromTemplate(`#modal__${type}`);
     if (type === ModalType.GameOver) {
       const scoreElement = message.querySelector('.modal__score') as HTMLSpanElement;
@@ -45,14 +50,14 @@ export default class Modal {
     this.modal.append(message);
   }
 
-  private renderForm(pairs: number) {
+  private renderForm = (pairs: number): void => {
     const formElement = getElementFromTemplate('#modal__form') as HTMLFormElement;
     const pairsSelectElement = formElement.querySelector('#num')! as HTMLSelectElement;
     pairsSelectElement.value = pairs.toString();
     this.modal.append(formElement);
   }
 
-  private renderRecords(records: Record[]) {
+  private renderRecords = (records: Record[]): void => {
       const recordsElement = getElementFromTemplate('#modal__records') as HTMLDivElement;
       const tbodyElement = recordsElement.querySelector('tbody')!;
       records.forEach(record => {

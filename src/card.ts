@@ -24,7 +24,7 @@ export default class Card {
     return this.cardElement;
   }
 
-  private onCardClick = () => {
+  private onCardClick = (): void => {
     this.clickHandler(this);
   }
 }

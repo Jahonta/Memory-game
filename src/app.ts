@@ -1,46 +1,28 @@
-import { Record } from "./types/record.js";
 import { ModalType, PAIRS_DEFAULT } from './const.js';
 import Modal from "./modal.js";
 import Game from './game.js';
+import Records from "./records.js";
 
-const mockRecords: Record[] = [
-  {
-    score: 10,
-    date: new Date()
-  },
-  {
-    score: 20,
-    date: new Date('1970-01-01')
-  },
-  {
-    score: 30,
-    date: new Date('2022-04-15')
-  }
-];
+const records = new Records();
 
-const showModal = (type: ModalType,
-  pairs: number,
-  records: Record[],
-  lastScore: number = 0) => {
-  const modal = new Modal(type, pairs, records, lastScore);
+const showModal = (type: ModalType, pairs: number, lastScore: number = 0): void => {
+  const modal = new Modal(type, pairs, records.getRecords(), lastScore);
   modal.render();
   modal.setPlayClickHandler(startGame);
+  modal.setForgetMeHandler(records.clearRecords);
 }
 
-const startGame = (modal: Modal) => {
+const startGame = (modal: Modal): void => {
   const pairs = modal.getPairs();
   modal.destroy();
   const game = new Game(pairs);
   game.setGameOverHandler(endGame);
 }
 
-const endGame = (score: number, pairs: number, game: Game) => {
+const endGame = (score: number, pairs: number, game: Game): void => {
   game.destroy();
-  mockRecords.push({
-          score,
-          date: new Date()
-        });
-  showModal(ModalType.GameOver, pairs, mockRecords, score);
+  records.addRecord(score);
+  showModal(ModalType.GameOver, pairs, score);
 }
 
-showModal(ModalType.Welcome, PAIRS_DEFAULT, mockRecords);
+showModal(ModalType.Welcome, PAIRS_DEFAULT);

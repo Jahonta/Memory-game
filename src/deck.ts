@@ -24,11 +24,11 @@ export default class Deck {
     });
   }
 
-  destroy = () => {
+  destroy = (): void => {
     document.querySelector('.game')!.innerHTML = '';
   }
 
-  private createDeck(): HTMLUListElement {
+  private createDeck = (): HTMLUListElement => {
     const deckElement = document.createElement('ul');
     deckElement.classList.add('card-box');
 

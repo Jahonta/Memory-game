@@ -1,10 +1,9 @@
 import { Status } from './types/status.js';
-import { PAIRS_DEFAULT } from './const.js';
 import Deck from './deck.js';
 export default class Game {
   private score = 0;
   private openedPairs = 0;
-  private totalPairs = PAIRS_DEFAULT;
+  private totalPairs: number;
   private deck!: Deck;
   private gameOverHandler!: (score: number, pairs: number, game: Game) => void;
 
@@ -18,11 +17,11 @@ export default class Game {
     this.gameOverHandler = callback;
   }
 
-  destroy = () => {
+  destroy = (): void => {
     this.deck.destroy();
   }
 
-  private deckClickHandler = (status: Status) => {
+  private deckClickHandler = (status: Status): void => {
     switch(status) {
       case Status.Hit:
         this.score += 10;
