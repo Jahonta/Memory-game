@@ -16,7 +16,6 @@ export default class Game {
     this.scoreElement.textContent = 'Your score: 0';
     this.deck = new Deck(this.totalPairs, this.deckClickHandler);
     this.gameElement.append(this.deck.getElement());
-    this.deck.closeCards();
   }
 
   setGameOverHandler = (callback: (score: number, pairs: number, game: Game) => void): void => {

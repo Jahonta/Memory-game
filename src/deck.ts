@@ -18,14 +18,6 @@ export default class Deck {
     return this.deckElement;
   }
 
-  closeCards = (): void => {
-    this.deck.forEach((pair) => {
-      if (!pair.isSet) {
-        pair.closeCards();
-      }
-    });
-  }
-
   destroy = (): void => {
     document.querySelector('.game')!.innerHTML = '';
   }
