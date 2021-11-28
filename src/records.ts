@@ -23,7 +23,8 @@ export default class Records {
       date: new Date()
     });
     this.records.sort(this.sortRecords);
-    localStorage.setItem('records', JSON.stringify(this.records.slice(0, 10)));
+    this.records = this.records.slice(0, 10);
+    localStorage.setItem('records', JSON.stringify(this.records));
   }
 
   clearRecords = (): void => {

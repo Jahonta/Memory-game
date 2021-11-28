@@ -24,6 +24,7 @@ export default class Game {
 
   destroy = (): void => {
     this.deck.destroy();
+    this.scoreElement.textContent = '';
   }
 
   private deckClickHandler = (status: Status): void => {

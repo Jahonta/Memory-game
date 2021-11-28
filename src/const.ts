@@ -9,4 +9,4 @@ export type Record = {
   date: Date;
 };
 
-export const PAIRS_DEFAULT = 1;
+export const PAIRS_DEFAULT = 4;

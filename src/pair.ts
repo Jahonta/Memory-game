@@ -20,9 +20,9 @@ export default class Pair {
       target.close();
       this.clickHandler(Status.Close, target);
       return;
-    } else {
-      target.open();
     }
+
+    target.open();
 
     if (this.pair.every(card => card.isOpened)) {
       this.isSet = true;

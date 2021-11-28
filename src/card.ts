@@ -7,7 +7,7 @@ export default class Card {
     this.cardElement.classList.add('card-box__item');
     this.cardElement.innerHTML = `<div class="card-box__item-front"></div>
           <div class="card-box__item-back"><img src="${skin}" alt="" class="card-box__back-img"></div>`;
-          this.cardElement.addEventListener('click', this.onCardClick);
+    this.cardElement.addEventListener('click', this.onCardClick);
   }
 
   close = (): void => {
