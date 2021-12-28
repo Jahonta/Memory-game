@@ -1,4 +1,4 @@
-import { Status } from './const.js';
+import { Status } from './util.js';
 import Card from "./card.js";
 import Pair from "./pair.js";
 

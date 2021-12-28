@@ -1,4 +1,4 @@
-import { ModalType, PAIRS_DEFAULT } from './const.js';
+import { ModalType, PAIRS_DEFAULT } from './util.js';
 import Modal from "./modal.js";
 import Game from './game.js';
 import Records from "./records.js";
