@@ -13,24 +13,24 @@ export default class Records {
     }
   }
 
-  getRecords = (): Record[] => {
+  get = (): Record[] => {
     return this.records;
   }
 
-  addRecord = (score: number): void => {
+  add = (score: number): void => {
     this.records.push({
       score,
       date: new Date()
     });
-    this.records.sort(this.sortRecords);
+    this.records.sort(this.sort);
     this.records = this.records.slice(0, 10);
     localStorage.setItem('records', JSON.stringify(this.records));
   }
 
-  clearRecords = (): void => {
+  clear = (): void => {
     this.records = [];
     localStorage.setItem('records', '');
   }
 
-  private sortRecords = (a: Record, b: Record): number => b.score - a.score;
+  private sort = (a: Record, b: Record): number => b.score - a.score;
 }

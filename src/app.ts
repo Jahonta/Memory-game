@@ -3,13 +3,16 @@ import Modal from "./modal.js";
 import Game from './game.js';
 import Records from "./records.js";
 
-const records = new Records();
+const recordsDB = new Records();
 
 const showModal = (type: ModalType, pairs: number, lastScore: number = 0): void => {
-  const modal = new Modal(type, pairs, records.getRecords(), lastScore);
+  const records = recordsDB.get();
+  const modal = new Modal(type, pairs, records, lastScore);
   modal.render();
   modal.setPlayClickHandler(startGame);
-  modal.setForgetMeHandler(records.clearRecords);
+  if (records.length > 0) {
+    modal.setForgetMeHandler(recordsDB.clear);
+  }
 }
 
 const startGame = (modal: Modal): void => {
@@ -21,7 +24,7 @@ const startGame = (modal: Modal): void => {
 
 const endGame = (score: number, pairs: number, game: Game): void => {
   game.destroy();
-  records.addRecord(score);
+  recordsDB.add(score);
   showModal(ModalType.GameOver, pairs, score);
 }
 
