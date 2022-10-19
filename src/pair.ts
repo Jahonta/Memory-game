@@ -1,5 +1,5 @@
 import Card from "./card.js";
-import { Status } from './const.js';
+import { Status } from './util.js';
 
 export default class Pair {
   isSet = false;
